@@ -12,6 +12,7 @@ class User {
         this.email    = user.email
         this.role     = user.role
         this.password = bcrypt.hashSync(user.password, 8)
+        this.preferences = []
     }
     save() {
         if (store.users.find(usr => usr.email === this.email)) {
@@ -21,13 +22,20 @@ class User {
         console.log(store.users)
         return Promise.resolve() 
     }
-    getUsers() {
+    static getUsers() {
         return Promise.resolve(store.users)
     }
     static findOne(userAttribute) {
         const attribute = Object.keys(userAttribute)[0] // only support one attribute for thr sake of simplicity
         const user = store.users.find(usr => usr[attribute] === userAttribute[attribute])
         return Promise.resolve(user)
+    }
+    updateUserPreferences(preferences) {
+        this.preferences = [...this.preferences, ...preferences]
+        return Promise.resolve({status: true})
+    }
+    getUserPreferences() {
+        return Promise.resolve(this.preferences)
     }
 }
 

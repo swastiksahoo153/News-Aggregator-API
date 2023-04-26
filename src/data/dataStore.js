@@ -1,5 +1,5 @@
 const store = {
-    users: []
+    users: [],
 }
 
 module.exports = store

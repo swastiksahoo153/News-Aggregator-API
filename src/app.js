@@ -2,7 +2,8 @@ const express    = require('express');
 const bodyParser = require('body-parser');
 const cors       = require('cors');
 const routes     = require('express').Router();
-const { signup, signin } = require("./controllers/authController");
+
+const newsAggregatorRoutes = require('./routes');
 
 require("dotenv").config();
 
@@ -25,8 +26,7 @@ routes.get('/', (req, res)=>{
   res.status(200).send("Welcome to the News Aggregator App!");
 });
 
-routes.post('/register', signup);
-routes.post('/signin', signin);
+routes.use('/api/v1/', newsAggregatorRoutes);
 
 const PORT = process.env.PORT
 
