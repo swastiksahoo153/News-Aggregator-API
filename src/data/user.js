@@ -19,7 +19,6 @@ class User {
             return Promise.reject("User already exists!")
         }
         store.users.push(this)
-        console.log(store.users)
         return Promise.resolve() 
     }
     static getUsers() {

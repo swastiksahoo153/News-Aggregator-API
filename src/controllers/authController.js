@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const User = require("../data/user");
+const { User } = require("../data");
 
 const signup = (req, res) => {
   const user = new User({

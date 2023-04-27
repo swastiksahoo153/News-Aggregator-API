@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const verifyToken = require('../middleware/authJWT')
 
 const { signup, signin } = require("../controllers/authController");
-const { getUserPreferences, updateUserPreferences, getNewsForUser } = require("../controllers/newsController");
+const {getUserPreferences, updateUserPreferences, getNewsForUser, markArticleAsReadController, getReadArticlesController, markArticleAsFavoriteController, getFavoriteArticlesController} = require("../controllers");
 
 routes.use(bodyParser.urlencoded({ extended: false }));
 routes.use(bodyParser.json());
@@ -20,5 +20,10 @@ routes.put('/preferences', verifyToken, updateUserPreferences)
 // News Articles
 routes.get('/news', verifyToken, getNewsForUser)
 
+routes.post('/news/:id/read', verifyToken, markArticleAsReadController)
+routes.post('/news/:id/favorite', verifyToken, markArticleAsFavoriteController)
+
+routes.get('/news/read', verifyToken, getReadArticlesController)
+routes.get('/news/favorites', verifyToken, getFavoriteArticlesController)
 
 module.exports = routes;

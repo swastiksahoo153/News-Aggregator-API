@@ -1,30 +1,6 @@
 const handleJWTError = require("./authenticationHelper")
 const getNewsArticles = require("../newsAPI")
-
-
-const getUserPreferences = async (req, res) => {
-    try {
-        handleJWTError(req, res)
-        const preferences = await req.user.getUserPreferences()
-        res.status(200).json(preferences)
-    } catch(err) {
-        res.status(500).json({message: err.message})
-    }
-}
-
-const updateUserPreferences = async (req, res) => {
-    try {
-        handleJWTError(req, res)
-        const { status } = await req.user.updateUserPreferences(req.body.preferences)
-        if (status === true) {
-            res.status(200).json({message: "User Preferences updated successfully"})
-        } else {
-            res.status(500).json({message: "Failed to update user preferences"})
-        }
-    } catch(err) {
-        res.status(500).json({message: err.message})
-    }
-}
+const { markArticleRead, markArticleFavorite, getReadArticles, getFavoriteArticles } = require("../data")
 
 const getNewsForUser = async (req, res) => {
     try {
@@ -35,14 +11,50 @@ const getNewsForUser = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
-
-    handleJWTError(req, res)
-    const {preferences} = req.user
-    getNewsArticles(preferences).then(articles => {
-        res.status(200).json(articles)
-    }).catch(err => { 
-        res.status(500).json({ message: err.message })
-    })
 }
 
-module.exports = {getUserPreferences, updateUserPreferences, getNewsForUser}
+const markArticleAsReadController = async (req, res) => {
+    try {
+        handleJWTError(req, res)
+        const { status } = await markArticleRead(req.params.id)
+        res.status(200).json({message: `Article ${req.params.id} marked as read`})
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+
+const getReadArticlesController = async (req, res) => {
+    try {
+        handleJWTError(req, res)
+        const preferences = await req.user.getUserPreferences()
+        const articles = await getNewsArticles(preferences)
+        const readArticles = await getReadArticles(articles)
+        res.status(200).json(readArticles)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+
+const markArticleAsFavoriteController = async (req, res) => {
+    try {
+        handleJWTError(req, res)
+        const { status } = await markArticleFavorite(req.params.id)
+        res.status(200).json({message: `Article ${req.params.id} marked as favorite`})
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+
+const getFavoriteArticlesController = async (req, res) => {
+    try {
+        handleJWTError(req, res)
+        const preferences = await req.user.getUserPreferences()
+        const articles = await getNewsArticles(preferences)
+        const favoriteArticles = await getFavoriteArticles(articles)
+        res.status(200).json(favoriteArticles)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+
+module.exports = {getNewsForUser, markArticleAsReadController, getReadArticlesController, markArticleAsFavoriteController, getFavoriteArticlesController}
