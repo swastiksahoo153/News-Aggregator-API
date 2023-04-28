@@ -6,7 +6,7 @@ const getNewsForUser = async (req, res) => {
     try {
         handleJWTError(req, res)
         const preferences = await req.user.getUserPreferences()
-        const articles = await getNewsArticles(preferences)
+        const articles = await getNewsArticles({ preferences })
         res.status(200).json(articles)
     } catch (err) {
         res.status(500).json({ message: err.message })
@@ -27,7 +27,7 @@ const getReadArticlesController = async (req, res) => {
     try {
         handleJWTError(req, res)
         const preferences = await req.user.getUserPreferences()
-        const articles = await getNewsArticles(preferences)
+        const articles = await getNewsArticles({ preferences })
         const readArticles = await getReadArticles(articles)
         res.status(200).json(readArticles)
     } catch (err) {
@@ -49,7 +49,7 @@ const getFavoriteArticlesController = async (req, res) => {
     try {
         handleJWTError(req, res)
         const preferences = await req.user.getUserPreferences()
-        const articles = await getNewsArticles(preferences)
+        const articles = await getNewsArticles({ preferences })
         const favoriteArticles = await getFavoriteArticles(articles)
         res.status(200).json(favoriteArticles)
     } catch (err) {
@@ -57,4 +57,14 @@ const getFavoriteArticlesController = async (req, res) => {
     }
 }
 
-module.exports = {getNewsForUser, markArticleAsReadController, getReadArticlesController, markArticleAsFavoriteController, getFavoriteArticlesController}
+const getArticlesByKeywordController = async (req, res) => {
+    try {
+        handleJWTError(req, res)
+        const articles = await getNewsArticles({ keyword: req.params.keyword })
+        res.status(200).json(articles)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+
+module.exports = {getNewsForUser, markArticleAsReadController, getReadArticlesController, markArticleAsFavoriteController, getFavoriteArticlesController, getArticlesByKeywordController}
