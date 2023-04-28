@@ -1,9 +1,12 @@
 const routes = require('express').Router();
 const bodyParser = require('body-parser');
 const verifyToken = require('../middleware/authJWT')
+const mcache  = require('../middleware/cache')
 
 const { signup, signin } = require("../controllers/authController");
 const {getUserPreferences, updateUserPreferences, getNewsForUser, markArticleAsReadController, getReadArticlesController, markArticleAsFavoriteController, getFavoriteArticlesController, getArticlesByKeywordController} = require("../controllers");
+
+const CACHE_TIMEOUT = 60*5; // 5 minutes
 
 routes.use(bodyParser.urlencoded({ extended: false }));
 routes.use(bodyParser.json());
@@ -18,14 +21,14 @@ routes.get('/preferences', verifyToken, getUserPreferences)
 routes.put('/preferences', verifyToken, updateUserPreferences)
 
 // News Articles
-routes.get('/news', verifyToken, getNewsForUser)
+routes.get('/news', verifyToken, mcache(CACHE_TIMEOUT), getNewsForUser)
 
 routes.post('/news/:id/read', verifyToken, markArticleAsReadController)
 routes.post('/news/:id/favorite', verifyToken, markArticleAsFavoriteController)
 
-routes.get('/news/read', verifyToken, getReadArticlesController)
-routes.get('/news/favorites', verifyToken, getFavoriteArticlesController)
+routes.get('/news/read', verifyToken, mcache(CACHE_TIMEOUT), getReadArticlesController)
+routes.get('/news/favorites', verifyToken, mcache(CACHE_TIMEOUT), getFavoriteArticlesController)
 
-routes.get('/news/search/:keyword', verifyToken, getArticlesByKeywordController)
+routes.get('/news/search/:keyword', verifyToken, mcache(CACHE_TIMEOUT), getArticlesByKeywordController)
 
 module.exports = routes;
