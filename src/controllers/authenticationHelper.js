@@ -3,10 +3,14 @@ const handleJWTError = (req, res) => {
         res.status(403).send({
             message: "Invalid JWT token"
         });
+        return false;
     } else if (!req.user && req.message) {
         res.status(403).send({
             message: req.message
         });
+        return false;
+    } else {
+        return true;
     }
 }
 

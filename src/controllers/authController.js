@@ -38,11 +38,10 @@ const signin = (req, res) => {
           });
       }
       //comparing passwords
-      // const passwordIsValid = bcrypt.compareSync(
-      //   req.body.password,
-      //   user.password
-      // );
-      const passwordIsValid = true
+      const passwordIsValid = bcrypt.compareSync(
+        req.body.password,
+        user.password
+      );
       // checking if password was valid and send response accordingly
       if (!passwordIsValid) {
         return res.status(401)

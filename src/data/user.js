@@ -11,7 +11,7 @@ class User {
         this.fullName = user.fullName
         this.email    = user.email
         this.role     = user.role
-        this.password = bcrypt.hashSync(user.password, 8)
+        this.password = user.password
         this.preferences = []
     }
     save() {

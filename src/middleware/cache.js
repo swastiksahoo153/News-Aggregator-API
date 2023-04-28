@@ -1,7 +1,11 @@
 const mcache = require('memory-cache');
+const handleJWTError = require('../controllers/authenticationHelper');
 
 var cache = (duration) => {
     return (req, res, next) => {
+        const isJWTValid = handleJWTError(req, res)
+        if (isJWTValid === false) 
+            return
         let key = '__express__' + req.originalUrl || req.url
         let cachedBody = mcache.get(key)
         if (cachedBody) {
