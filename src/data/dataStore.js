@@ -1,7 +1,7 @@
 const store = {
-    users: [],
-    readArticleIds: [],
-    favoriteArticleIds: []
-}
+  users: [],
+  readArticleIds: [],
+  favoriteArticleIds: [],
+};
 
-module.exports = store
+module.exports = store;
