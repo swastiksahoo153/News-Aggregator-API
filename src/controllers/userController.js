@@ -1,8 +1,5 @@
-const handleJWTError = require("./authenticationHelper");
-
 const getUserPreferences = async (req, res) => {
   try {
-    handleJWTError(req, res);
     const preferences = await req.user.getUserPreferences();
     res.status(200).json(preferences);
   } catch (err) {
@@ -12,7 +9,6 @@ const getUserPreferences = async (req, res) => {
 
 const updateUserPreferences = async (req, res) => {
   try {
-    handleJWTError(req, res);
     const { status } = await req.user.updateUserPreferences(
       req.body.preferences
     );

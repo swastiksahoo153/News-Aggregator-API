@@ -1,4 +1,3 @@
-const handleJWTError = require("./authenticationHelper");
 const getNewsArticles = require("../newsAPI");
 const {
   markArticleRead,
@@ -9,7 +8,6 @@ const {
 
 const getNewsForUser = async (req, res) => {
   try {
-    handleJWTError(req, res);
     const preferences = await req.user.getUserPreferences();
     const articles = await getNewsArticles({ preferences });
     res.status(200).json(articles);
@@ -20,7 +18,6 @@ const getNewsForUser = async (req, res) => {
 
 const markArticleAsReadController = async (req, res) => {
   try {
-    handleJWTError(req, res);
     const { status } = await markArticleRead(req.params.id);
     res
       .status(200)
@@ -32,7 +29,6 @@ const markArticleAsReadController = async (req, res) => {
 
 const getReadArticlesController = async (req, res) => {
   try {
-    handleJWTError(req, res);
     const preferences = await req.user.getUserPreferences();
     const articles = await getNewsArticles({ preferences });
     const readArticles = await getReadArticles(articles);
@@ -44,7 +40,6 @@ const getReadArticlesController = async (req, res) => {
 
 const markArticleAsFavoriteController = async (req, res) => {
   try {
-    handleJWTError(req, res);
     const { status } = await markArticleFavorite(req.params.id);
     res
       .status(200)
@@ -56,7 +51,6 @@ const markArticleAsFavoriteController = async (req, res) => {
 
 const getFavoriteArticlesController = async (req, res) => {
   try {
-    handleJWTError(req, res);
     const preferences = await req.user.getUserPreferences();
     const articles = await getNewsArticles({ preferences });
     const favoriteArticles = await getFavoriteArticles(articles);
@@ -68,7 +62,6 @@ const getFavoriteArticlesController = async (req, res) => {
 
 const getArticlesByKeywordController = async (req, res) => {
   try {
-    handleJWTError(req, res);
     const articles = await getNewsArticles({ keyword: req.params.keyword });
     res.status(200).json(articles);
   } catch (err) {

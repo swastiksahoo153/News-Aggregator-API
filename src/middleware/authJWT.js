@@ -13,9 +13,8 @@ const verifyToken = (req, res, next) => {
       function (err, decode) {
         if (err) {
           req.user = undefined;
-          // next();
-          res.status(401).send({
-            message: err + "from here",
+          return res.status(401).send({
+            message: err,
           });
         }
         User.findOne({
@@ -26,16 +25,16 @@ const verifyToken = (req, res, next) => {
             next();
           })
           .catch((err) => {
-            res.status(500).send({
+            return res.status(500).send({
               message: err,
             });
           });
       }
     );
   } else {
-    req.user = undefined;
-    req.message = "Authorization header not found";
-    next();
+    return res.status(400).send({
+      message: "Authorization header not found",
+    });
   }
 };
 module.exports = verifyToken;

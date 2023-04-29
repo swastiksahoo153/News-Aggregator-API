@@ -1,4 +1,3 @@
-const bcrypt = require("bcrypt");
 const store = require("./dataStore");
 const { v4: uuidv4 } = require("uuid");
 
