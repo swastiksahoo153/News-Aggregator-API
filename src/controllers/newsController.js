@@ -4,11 +4,12 @@ const {
   markArticleFavorite,
   getReadArticles,
   getFavoriteArticles,
+  getUserPreferences,
 } = require("../data");
 
-const getNewsForUser = async (req, res) => {
+const getNewsForUserController = async (req, res) => {
   try {
-    const preferences = await req.user.getUserPreferences();
+    const preferences = await getUserPreferences(req.user.id);
     const articles = await getNewsArticles({ preferences });
     res.status(200).json(articles);
   } catch (err) {
@@ -18,7 +19,7 @@ const getNewsForUser = async (req, res) => {
 
 const markArticleAsReadController = async (req, res) => {
   try {
-    const { status } = await markArticleRead(req.params.id);
+    const { status } = await markArticleRead(req.user.id, req.params.id);
     res
       .status(200)
       .json({ message: `Article ${req.params.id} marked as read` });
@@ -29,9 +30,9 @@ const markArticleAsReadController = async (req, res) => {
 
 const getReadArticlesController = async (req, res) => {
   try {
-    const preferences = await req.user.getUserPreferences();
+    const preferences = await getUserPreferences(req.user.id);
     const articles = await getNewsArticles({ preferences });
-    const readArticles = await getReadArticles(articles);
+    const readArticles = await getReadArticles(req.user.id, articles);
     res.status(200).json(readArticles);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -40,7 +41,7 @@ const getReadArticlesController = async (req, res) => {
 
 const markArticleAsFavoriteController = async (req, res) => {
   try {
-    const { status } = await markArticleFavorite(req.params.id);
+    const { status } = await markArticleFavorite(req.user.id, req.params.id);
     res
       .status(200)
       .json({ message: `Article ${req.params.id} marked as favorite` });
@@ -51,9 +52,9 @@ const markArticleAsFavoriteController = async (req, res) => {
 
 const getFavoriteArticlesController = async (req, res) => {
   try {
-    const preferences = await req.user.getUserPreferences();
+    const preferences = await getUserPreferences(req.user.id);
     const articles = await getNewsArticles({ preferences });
-    const favoriteArticles = await getFavoriteArticles(articles);
+    const favoriteArticles = await getFavoriteArticles(req.user.id, articles);
     res.status(200).json(favoriteArticles);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -70,7 +71,7 @@ const getArticlesByKeywordController = async (req, res) => {
 };
 
 module.exports = {
-  getNewsForUser,
+  getNewsForUserController,
   markArticleAsReadController,
   getReadArticlesController,
   markArticleAsFavoriteController,

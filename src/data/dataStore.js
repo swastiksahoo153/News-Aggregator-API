@@ -1,7 +1,3 @@
-const store = {
-  users: [],
-  readArticleIds: [],
-  favoriteArticleIds: [],
-};
+const store = {};
 
 module.exports = store;

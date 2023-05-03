@@ -5,9 +5,9 @@ const mcache = require("../middleware/cache");
 
 const { signup, signin } = require("../controllers/authController");
 const {
-  getUserPreferences,
-  updateUserPreferences,
-  getNewsForUser,
+  getUserPreferencesController,
+  updateUserPreferencesController,
+  getNewsForUserController,
   markArticleAsReadController,
   getReadArticlesController,
   markArticleAsFavoriteController,
@@ -25,11 +25,16 @@ routes.post("/register", signup);
 routes.post("/login", signin);
 
 // User Preference Routes
-routes.get("/preferences", verifyToken, getUserPreferences);
-routes.put("/preferences", verifyToken, updateUserPreferences);
+routes.get("/preferences", verifyToken, getUserPreferencesController);
+routes.put("/preferences", verifyToken, updateUserPreferencesController);
 
 // News Articles
-routes.get("/news", verifyToken, mcache(CACHE_TIMEOUT), getNewsForUser);
+routes.get(
+  "/news",
+  verifyToken,
+  mcache(CACHE_TIMEOUT),
+  getNewsForUserController
+);
 
 routes.post("/news/:id/read", verifyToken, markArticleAsReadController);
 routes.post("/news/:id/favorite", verifyToken, markArticleAsFavoriteController);

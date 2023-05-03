@@ -1,9 +1,9 @@
 const {
-  getUserPreferences,
-  updateUserPreferences,
+  getUserPreferencesController,
+  updateUserPreferencesController,
 } = require("./userController");
 const {
-  getNewsForUser,
+  getNewsForUserController,
   markArticleAsReadController,
   getReadArticlesController,
   markArticleAsFavoriteController,
@@ -12,9 +12,9 @@ const {
 } = require("./newsController");
 
 module.exports = {
-  getUserPreferences,
-  updateUserPreferences,
-  getNewsForUser,
+  getUserPreferencesController,
+  updateUserPreferencesController,
+  getNewsForUserController,
   markArticleAsReadController,
   getReadArticlesController,
   markArticleAsFavoriteController,

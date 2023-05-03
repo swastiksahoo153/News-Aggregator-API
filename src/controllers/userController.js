@@ -1,15 +1,18 @@
-const getUserPreferences = async (req, res) => {
+const { updateUserPreferences, getUserPreferences } = require("../data");
+
+const getUserPreferencesController = async (req, res) => {
   try {
-    const preferences = await req.user.getUserPreferences();
+    const preferences = await getUserPreferences(req.user.id);
     res.status(200).json(preferences);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-const updateUserPreferences = async (req, res) => {
+const updateUserPreferencesController = async (req, res) => {
   try {
-    const { status } = await req.user.updateUserPreferences(
+    const { status } = await updateUserPreferences(
+      req.user.id,
       req.body.preferences
     );
     if (status === true) {
@@ -24,4 +27,7 @@ const updateUserPreferences = async (req, res) => {
   }
 };
 
-module.exports = { getUserPreferences, updateUserPreferences };
+module.exports = {
+  getUserPreferencesController,
+  updateUserPreferencesController,
+};

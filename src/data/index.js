@@ -1,4 +1,4 @@
-const User = require("./user");
+const { User, updateUserPreferences, getUserPreferences } = require("./user");
 const {
   markArticleRead,
   markArticleFavorite,
@@ -12,4 +12,6 @@ module.exports = {
   markArticleFavorite,
   getReadArticles,
   getFavoriteArticles,
+  updateUserPreferences,
+  getUserPreferences,
 };

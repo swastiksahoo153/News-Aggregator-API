@@ -11,7 +11,7 @@ const signup = (req, res) => {
   });
 
   user
-    .save()
+    .create()
     .then(() => {
       res.status(200).send({
         message: "User Registered successfully",

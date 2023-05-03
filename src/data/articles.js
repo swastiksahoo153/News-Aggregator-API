@@ -1,24 +1,24 @@
 const store = require("./dataStore");
 
-const markArticleRead = (id) => {
-  store.readArticleIds.push(id);
+const markArticleRead = (userId, id) => {
+  store[userId].readArticleIds.push(id);
   return Promise.resolve({ status: true });
 };
-const markArticleFavorite = (id) => {
-  store.favoriteArticleIds.push(id);
+const markArticleFavorite = (userId, id) => {
+  store[userId].favoriteArticleIds.push(id);
   return Promise.resolve({ status: true });
 };
 
-const getReadArticles = (articles) => {
+const getReadArticles = (userId, articles) => {
   const readArticles = articles.filter((article) =>
-    store.readArticleIds.includes(article.publishedAt)
+    store[userId].readArticleIds.includes(article.publishedAt)
   );
   return Promise.resolve(readArticles);
 };
 
-const getFavoriteArticles = (articles) => {
+const getFavoriteArticles = (userId, articles) => {
   const favoriteArticles = articles.filter((article) =>
-    store.favoriteArticleIds.includes(article.publishedAt)
+    store[userId].favoriteArticleIds.includes(article.publishedAt)
   );
   return Promise.resolve(favoriteArticles);
 };
