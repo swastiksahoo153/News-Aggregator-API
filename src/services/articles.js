@@ -1,9 +1,10 @@
-const store = require("./dataStore");
+const { store } = require("../data");
 
 const markArticleRead = (userId, id) => {
   store[userId].readArticleIds.push(id);
   return Promise.resolve({ status: true });
 };
+
 const markArticleFavorite = (userId, id) => {
   store[userId].favoriteArticleIds.push(id);
   return Promise.resolve({ status: true });

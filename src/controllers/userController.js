@@ -1,4 +1,4 @@
-const { updateUserPreferences, getUserPreferences } = require("../data");
+const { updateUserPreferences, getUserPreferences } = require("../services");
 
 const getUserPreferencesController = async (req, res) => {
   try {

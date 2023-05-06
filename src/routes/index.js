@@ -20,15 +20,15 @@ const CACHE_TIMEOUT = 60 * 5; // 5 minutes
 routes.use(bodyParser.urlencoded({ extended: false }));
 routes.use(bodyParser.json());
 
-// Authentication Routes
+// ----------Authentication Routes----------
 routes.post("/register", signup);
 routes.post("/login", signin);
 
-// User Preference Routes
+// ----------User Preference Routes----------
 routes.get("/preferences", verifyToken, getUserPreferencesController);
 routes.put("/preferences", verifyToken, updateUserPreferencesController);
 
-// News Articles
+// ----------News Articles----------
 routes.get(
   "/news",
   verifyToken,

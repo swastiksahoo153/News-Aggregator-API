@@ -1,82 +1,58 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const { User } = require("../data");
+const {
+  createUser,
+  findUserByEmail,
+  comparePassword,
+  createToken,
+} = require("../services");
 
-const signup = (req, res) => {
-  const user = new User({
-    fullName: req.body.fullName,
-    email: req.body.email,
-    role: req.body.role,
-    password: bcrypt.hashSync(req.body.password, 8),
-  });
-
-  user
-    .create()
-    .then(() => {
-      res.status(200).send({
-        message: "User Registered successfully",
-      });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err,
-      });
-      return;
+const signup = async (req, res) => {
+  try {
+    await createUser(req.body);
+    res.status(200).send({
+      message: "User Registered successfully",
     });
+  } catch (err) {
+    res.status(500).send({
+      message: err,
+    });
+  }
 };
 
-const signin = (req, res) => {
-  User.findOne({
-    email: req.body.email,
-  })
-    .then((user) => {
-      if (!user) {
-        return res.status(404).send({
-          message: "User Not found.",
-        });
-      }
-      //comparing passwords
-      const passwordIsValid = bcrypt.compareSync(
-        req.body.password,
-        user.password
-      );
-      // checking if password was valid and send response accordingly
-      if (!passwordIsValid) {
-        return res.status(401).send({
-          accessToken: null,
-          message: "Invalid Password!",
-        });
-      }
-      //signing token with user id
-      const token = jwt.sign(
-        {
-          id: user.id,
-        },
-        process.env.API_SECRET,
-        {
-          expiresIn: 86400,
-        }
-      );
-
-      //responding to client request with user profile success message and  access token .
-      res.status(200).send({
-        user: {
-          id: user._id,
-          email: user.email,
-          fullName: user.fullName,
-        },
-        message: "Login successfull",
-        accessToken: token,
+const signin = async (req, res) => {
+  try {
+    const user = await findUserByEmail(req.body.email);
+    if (!user) {
+      return res.status(404).send({
+        message: "User Not found.",
       });
-    })
-    .catch((err) => {
-      if (err) {
-        res.status(500).send({
-          message: err,
-        });
-        return;
-      }
+    }
+
+    const isPasswordValid = comparePassword(req.body.password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).send({
+        accessToken: null,
+        message: "Invalid Password!",
+      });
+    }
+
+    const token = createToken(user.id);
+
+    //responding to client request with user profile success message and  access token .
+    res.status(200).send({
+      user: {
+        id: user.id,
+        email: user.email,
+        fullName: user.fullName,
+      },
+      message: "Login successfull",
+      accessToken: token,
     });
+  } catch (err) {
+    res.status(500).send({
+      message: err,
+    });
+  }
 };
 
 module.exports = { signin, signup };

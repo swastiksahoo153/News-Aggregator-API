@@ -17,9 +17,15 @@ const getNewsResults = ({ preferences, keyword }) => {
 };
 
 const getNewsArticles = async ({ preferences, keyword }) => {
-  const newsResults = await getNewsResults({ preferences, keyword });
-  const articles = newsResults.map((newsResult) => newsResult.articles).flat(1);
-  return Promise.resolve(articles);
+  try {
+    const newsResults = await getNewsResults({ preferences, keyword });
+    const articles = newsResults
+      .map((newsResult) => newsResult.articles)
+      .flat(1);
+    return Promise.resolve(articles);
+  } catch (err) {
+    return Promise.reject(err);
+  }
 };
 
 module.exports = getNewsArticles;

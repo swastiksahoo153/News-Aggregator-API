@@ -1,11 +1,11 @@
-const getNewsArticles = require("../newsAPI");
 const {
   markArticleRead,
   markArticleFavorite,
   getReadArticles,
   getFavoriteArticles,
   getUserPreferences,
-} = require("../data");
+  getNewsArticles,
+} = require("../services");
 
 const getNewsForUserController = async (req, res) => {
   try {

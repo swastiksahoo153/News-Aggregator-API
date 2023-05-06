@@ -1,17 +1,7 @@
-const { User, updateUserPreferences, getUserPreferences } = require("./user");
-const {
-  markArticleRead,
-  markArticleFavorite,
-  getReadArticles,
-  getFavoriteArticles,
-} = require("./articles");
+const User = require("./user");
+const store = require("./dataStore");
 
 module.exports = {
+  store,
   User,
-  markArticleRead,
-  markArticleFavorite,
-  getReadArticles,
-  getFavoriteArticles,
-  updateUserPreferences,
-  getUserPreferences,
 };
