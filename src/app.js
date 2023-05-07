@@ -20,8 +20,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const limiter = rateLimit({
-  windowsMs: 15 * 1000, // 5 seconds
-  max: 5,
+  windowsMs: 30 * 1000, // 30 seconds in milliseconds
+  max: 50,
+  message: "You have exceeded the 50 requests in 30 seconds limit",
 });
 
 routes.use(limiter);

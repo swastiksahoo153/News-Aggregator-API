@@ -1,0 +1,465 @@
+{
+  "stats": {
+    "suites": 7,
+    "tests": 10,
+    "passes": 10,
+    "pending": 0,
+    "failures": 0,
+    "start": "2023-05-07T19:20:35.963Z",
+    "end": "2023-05-07T19:20:36.357Z",
+    "duration": 394,
+    "testsRegistered": 10,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "baae9228-9076-4a1b-bacb-10f72a7f2c6d",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "5c78dabb-0ab4-4ac5-8416-9e6948a464b9",
+          "title": "verifies register flow",
+          "fullFile": "C:\\Users\\Swastik Sahoo\\airtribe\\News-Aggregator-API\\test\\controllers\\auth.test.js",
+          "file": "\\test\\controllers\\auth.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"verifies register flow\"",
+              "fullTitle": "verifies register flow \"before all\" hook in \"verifies register flow\"",
+              "timedOut": false,
+              "duration": 25,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// runs once before the first test in this block\n// delete all users and make just one user with the following details\nawait deleteAllUsers();\nawait createUser({\n  fullName: \"Swastik Sahoo\",\n  email: \"swastiksahoo22@gmail.com\",\n  role: \"ADMIN\",\n  password: \"password\",\n});",
+              "err": {},
+              "uuid": "f7fbeb66-c937-45be-9973-4d0f55fe77a9",
+              "parentUUID": "5c78dabb-0ab4-4ac5-8416-9e6948a464b9",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "successful register",
+              "fullTitle": "verifies register flow successful register",
+              "timedOut": false,
+              "duration": 94,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const registerBody = {\n  fullName: \"Swastik Sahoo\",\n  email: \"newemailswastiksahoo22@gmail.com\",\n  role: \"ADMIN\",\n  password: \"password\",\n};\nchai\n  .request(server)\n  .post(`${endpointPrefix}/register`)\n  .send(registerBody)\n  .end((err, res) => {\n    expect(res.status).equal(200);\n    expect(res.body.message).equal(\"User Registered successfully\");\n    done();\n  });",
+              "err": {},
+              "uuid": "6734f781-dc7e-459e-912c-857ec0503f29",
+              "parentUUID": "5c78dabb-0ab4-4ac5-8416-9e6948a464b9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "incomplete details provided for register",
+              "fullTitle": "verifies register flow incomplete details provided for register",
+              "timedOut": false,
+              "duration": 9,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const registerBody = {\n  fullName: \"Swastik Sahoo\",\n  role: \"ADMIN\",\n  password: \"password\",\n};\nchai\n  .request(server)\n  .post(`${endpointPrefix}/register`)\n  .send(registerBody)\n  .end((err, res) => {\n    expect(res.status).equal(400);\n    expect(res.body.message).equal(\n      \"fullName, email, role & password are required\"\n    );\n    done();\n  });",
+              "err": {},
+              "uuid": "7d62779d-0b81-46be-aa12-db2294a8ef41",
+              "parentUUID": "5c78dabb-0ab4-4ac5-8416-9e6948a464b9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Email already exists",
+              "fullTitle": "verifies register flow Email already exists",
+              "timedOut": false,
+              "duration": 30,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const registerBody = {\n  fullName: \"Swastik Sahoo\",\n  email: \"swastiksahoo22@gmail.com\",\n  role: \"ADMIN\",\n  password: \"password\",\n};\nchai\n  .request(server)\n  .post(`${endpointPrefix}/register`)\n  .send(registerBody)\n  .end((err, res) => {\n    expect(res.status).equal(400);\n    expect(res.body.message).equal(\"Email already exists!\");\n    done();\n  });",
+              "err": {},
+              "uuid": "eb24276d-dfab-4eca-b068-917334a33c74",
+              "parentUUID": "5c78dabb-0ab4-4ac5-8416-9e6948a464b9",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "6734f781-dc7e-459e-912c-857ec0503f29",
+            "7d62779d-0b81-46be-aa12-db2294a8ef41",
+            "eb24276d-dfab-4eca-b068-917334a33c74"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 133,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 15000
+        },
+        {
+          "uuid": "a1cad867-806b-4d5f-8b46-f3d148c29114",
+          "title": "verifies login flow",
+          "fullFile": "C:\\Users\\Swastik Sahoo\\airtribe\\News-Aggregator-API\\test\\controllers\\auth.test.js",
+          "file": "\\test\\controllers\\auth.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"verifies login flow\"",
+              "fullTitle": "verifies login flow \"before all\" hook in \"verifies login flow\"",
+              "timedOut": false,
+              "duration": 24,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// runs once before the first test in this block\n// delete all users and make just one user with the following details\nawait deleteAllUsers();\nawait createUser({\n  fullName: \"Swastik Sahoo\",\n  email: \"swastiksahoo22@gmail.com\",\n  role: \"ADMIN\",\n  password: \"password\",\n});",
+              "err": {},
+              "uuid": "a6a22270-0390-4829-8d45-4af0d30350ef",
+              "parentUUID": "a1cad867-806b-4d5f-8b46-f3d148c29114",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "successful login",
+              "fullTitle": "verifies login flow successful login",
+              "timedOut": false,
+              "duration": 34,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const loginBody = {\n  email: \"swastiksahoo22@gmail.com\",\n  password: \"password\",\n};\nchai\n  .request(server)\n  .post(`${endpointPrefix}/login`)\n  .send(loginBody)\n  .end((err, res) => {\n    expect(res.status).equal(200);\n    expect(res.body.message).equal(\"Login successful\");\n    done();\n  });",
+              "err": {},
+              "uuid": "422d36bb-5da4-4ddd-a32f-67db1024b497",
+              "parentUUID": "a1cad867-806b-4d5f-8b46-f3d148c29114",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "incorrect password",
+              "fullTitle": "verifies login flow incorrect password",
+              "timedOut": false,
+              "duration": 28,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const loginBody = {\n  email: \"swastiksahoo22@gmail.com\",\n  password: \"INCORRECT_password\",\n};\nchai\n  .request(server)\n  .post(`${endpointPrefix}/login`)\n  .send(loginBody)\n  .end((err, res) => {\n    expect(res.status).equal(401);\n    expect(res.body.message).equal(\"Invalid Password!\");\n    done();\n  });",
+              "err": {},
+              "uuid": "14df1769-889a-4b76-817e-76c8c2054a76",
+              "parentUUID": "a1cad867-806b-4d5f-8b46-f3d148c29114",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "User not found",
+              "fullTitle": "verifies login flow User not found",
+              "timedOut": false,
+              "duration": 4,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const loginBody = {\n  email: \"doesnotexist@gmail.com\",\n  password: \"password\",\n};\nchai\n  .request(server)\n  .post(`${endpointPrefix}/login`)\n  .send(loginBody)\n  .end((err, res) => {\n    expect(res.status).equal(404);\n    expect(res.body.message).equal(\"User Not found.\");\n    done();\n  });",
+              "err": {},
+              "uuid": "aad78fe6-eb18-40ca-acc2-401b5ba9de92",
+              "parentUUID": "a1cad867-806b-4d5f-8b46-f3d148c29114",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Insufficient values provided",
+              "fullTitle": "verifies login flow Insufficient values provided",
+              "timedOut": false,
+              "duration": 6,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const loginBody = {\n  password: \"password\",\n};\nchai\n  .request(server)\n  .post(`${endpointPrefix}/login`)\n  .send(loginBody)\n  .end((err, res) => {\n    expect(res.status).equal(400);\n    expect(res.body.message).equal(\"email & password are required\");\n    done();\n  });",
+              "err": {},
+              "uuid": "28d3f51b-2f7a-4a45-a4f2-cdae97b4cd73",
+              "parentUUID": "a1cad867-806b-4d5f-8b46-f3d148c29114",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "422d36bb-5da4-4ddd-a32f-67db1024b497",
+            "14df1769-889a-4b76-817e-76c8c2054a76",
+            "aad78fe6-eb18-40ca-acc2-401b5ba9de92",
+            "28d3f51b-2f7a-4a45-a4f2-cdae97b4cd73"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 72,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 15000
+        },
+        {
+          "uuid": "2c58ee4f-3ed4-4862-a01d-1e95550da9ad",
+          "title": "Tests for news",
+          "fullFile": "C:\\Users\\Swastik Sahoo\\airtribe\\News-Aggregator-API\\test\\controllers\\news.test.js",
+          "file": "\\test\\controllers\\news.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before each\" hook in \"Tests for news\"",
+              "fullTitle": "Tests for news \"before each\" hook in \"Tests for news\"",
+              "timedOut": false,
+              "duration": 24,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await deleteAllUsers();\nuserId = await createUser({\n  fullName: \"Swastik Sahoo\",\n  email: \"swastiksahoo22@gmail.com\",\n  role: \"ADMIN\",\n  password: \"password\",\n});\nupdateUserPreferences(userId, [\"science\"]);\ntoken = createToken(userId);",
+              "err": {},
+              "uuid": "c0f1d8f4-ad9b-408c-8c11-fdb2448cc82d",
+              "parentUUID": "2c58ee4f-3ed4-4862-a01d-1e95550da9ad",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "a2ec660b-04d5-4dd2-a731-a298db502343",
+              "title": "GET /news",
+              "fullFile": "C:\\Users\\Swastik Sahoo\\airtribe\\News-Aggregator-API\\test\\controllers\\news.test.js",
+              "file": "\\test\\controllers\\news.test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "get the set preferences",
+                  "fullTitle": "Tests for news GET /news get the set preferences",
+                  "timedOut": false,
+                  "duration": 15,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "sinon.stub(services, \"getNewsArticles\").resolves(newsFixture); // Avoid making call to external API and always return fixed response\nchai\n  .request(server)\n  .get(`${endpointPrefix}/news`)\n  .set(\"Authorization\", `JWT ${token}`)\n  .end((err, res) => {\n    expect(res).to.have.status(200);\n    expect(res.body).to.have.deep.members(newsFixture); // Verify against the fixed response returned from the stubbed function\n    done();\n  });",
+                  "err": {},
+                  "uuid": "34a05238-c989-40f6-932f-a2796008f193",
+                  "parentUUID": "a2ec660b-04d5-4dd2-a731-a298db502343",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "34a05238-c989-40f6-932f-a2796008f193"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 15,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 15000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 15000
+        },
+        {
+          "uuid": "9455b559-4b50-4539-9560-d577d7da479c",
+          "title": "Tests for preferences",
+          "fullFile": "C:\\Users\\Swastik Sahoo\\airtribe\\News-Aggregator-API\\test\\controllers\\preferences.test.js",
+          "file": "\\test\\controllers\\preferences.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before each\" hook in \"Tests for preferences\"",
+              "fullTitle": "Tests for preferences \"before each\" hook in \"Tests for preferences\"",
+              "timedOut": false,
+              "duration": 28,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await deleteAllUsers();\nuserId = await createUser({\n  fullName: \"Swastik Sahoo\",\n  email: \"swastiksahoo22@gmail.com\",\n  role: \"ADMIN\",\n  password: \"password\",\n});\nupdateUserPreferences(userId, [\"science\"]);\ntoken = createToken(userId);",
+              "err": {},
+              "uuid": "0ba5036b-dd91-4990-8228-a40b71ad58d3",
+              "parentUUID": "9455b559-4b50-4539-9560-d577d7da479c",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "3ef08b9c-a148-4976-9224-437946438934",
+              "title": "GET /preferences",
+              "fullFile": "C:\\Users\\Swastik Sahoo\\airtribe\\News-Aggregator-API\\test\\controllers\\preferences.test.js",
+              "file": "\\test\\controllers\\preferences.test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "get the set preferences",
+                  "fullTitle": "Tests for preferences GET /preferences get the set preferences",
+                  "timedOut": false,
+                  "duration": 8,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "chai\n  .request(server)\n  .get(`${endpointPrefix}/preferences`)\n  .set(\"Authorization\", `JWT ${token}`)\n  .end((err, res) => {\n    expect(res).to.have.status(200);\n    expect(res.body).to.have.same.members([\"science\"]);\n    done();\n  });",
+                  "err": {},
+                  "uuid": "d8be7eef-1413-4dee-9cba-3ece09be6a71",
+                  "parentUUID": "3ef08b9c-a148-4976-9224-437946438934",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "d8be7eef-1413-4dee-9cba-3ece09be6a71"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 8,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 15000
+            },
+            {
+              "uuid": "55d67abc-0992-4f99-b1be-047b2300107c",
+              "title": "PUT /preferences",
+              "fullFile": "C:\\Users\\Swastik Sahoo\\airtribe\\News-Aggregator-API\\test\\controllers\\preferences.test.js",
+              "file": "\\test\\controllers\\preferences.test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "add new preference for the user",
+                  "fullTitle": "Tests for preferences PUT /preferences add new preference for the user",
+                  "timedOut": false,
+                  "duration": 7,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const newPreferenceBody = { preferences: [\"sports\", \"bollywood\"] };\nchai\n  .request(server)\n  .put(`${endpointPrefix}/preferences`)\n  .send(newPreferenceBody)\n  .set(\"Authorization\", `JWT ${token}`)\n  .end((err, res) => {\n    expect(res).to.have.status(200);\n    expect(res.body).equal(\"User Preferences updated successfully\");\n    done();\n  });",
+                  "err": {},
+                  "uuid": "85781a1b-6fc7-4f5c-90ef-d0de680c2f24",
+                  "parentUUID": "55d67abc-0992-4f99-b1be-047b2300107c",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "85781a1b-6fc7-4f5c-90ef-d0de680c2f24"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 7,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 15000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 15000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 15000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.2.0"
+    }
+  }
+}
