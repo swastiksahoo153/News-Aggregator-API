@@ -1,4 +1,4 @@
-const { store } = require("../data");
+const store = require("../data/dataStore");
 
 function updateUserPreferences(userId, preferences) {
   store[userId].preferences = [...store[userId].preferences, ...preferences];

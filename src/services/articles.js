@@ -1,4 +1,4 @@
-const { store } = require("../data");
+const store = require("../data/dataStore");
 
 const markArticleRead = (userId, id) => {
   store[userId].readArticleIds.push(id);
