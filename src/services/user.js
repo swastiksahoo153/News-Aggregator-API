@@ -11,7 +11,7 @@ function getUserPreferences(userId) {
 }
 
 function deleteAllUsers() {
-  User.deleteAll();
+  return User.deleteAll();
 }
 
 module.exports = { updateUserPreferences, getUserPreferences, deleteAllUsers };

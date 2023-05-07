@@ -1,6 +1,6 @@
 const routes = require("express").Router();
 const bodyParser = require("body-parser");
-const verifyToken = require("../middleware/authJWT");
+const { verifyToken } = require("../middleware/authJWT");
 const mcache = require("../middleware/cache");
 
 const { signup, signin } = require("../controllers/authController");

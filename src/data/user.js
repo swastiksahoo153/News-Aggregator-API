@@ -24,13 +24,14 @@ class User {
       if (existingUser != null) {
         return Promise.reject("Email already exists!");
       }
+      const userInfo = this.createUserInfo();
       store[this.id] = {
-        userInfo: this.createUserInfo(),
+        userInfo,
         preferences: [],
         readArticleIds: [],
         favoriteArticleIds: [],
       };
-      return Promise.resolve();
+      return Promise.resolve(userInfo.id);
     } catch (err) {
       return Promise.reject("Error while creating user: " + err);
     }
@@ -64,6 +65,7 @@ class User {
   }
   static deleteAll() {
     Object.keys(store).forEach((key) => delete store[key]);
+    return Promise.resolve();
   }
 }
 
