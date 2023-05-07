@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const routes = require("express").Router();
 const loggerMiddleware = require("./middleware/logger");
+const rateLimit = require("express-rate-limit");
 
 const newsAggregatorRoutes = require("./routes");
 
@@ -18,6 +19,12 @@ app.use(routes);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+const limiter = rateLimit({
+  windowsMs: 15 * 1000, // 5 seconds
+  max: 5,
+});
+
+routes.use(limiter);
 routes.use(loggerMiddleware());
 routes.use(bodyParser.urlencoded({ extended: false }));
 routes.use(bodyParser.json());

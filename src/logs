@@ -4,3 +4,8 @@
 ::1 - - [07/May/2023:18:42:11 +0000] "PUT /api/v1/preferences HTTP/1.1" 200 39 "-" "PostmanRuntime/7.32.2"
 ::1 - - [07/May/2023:18:42:14 +0000] "GET /api/v1/preferences HTTP/1.1" 200 22 "-" "PostmanRuntime/7.32.2"
 ::1 - - [07/May/2023:18:42:34 +0000] "GET /api/v1/news HTTP/1.1" 200 15257 "-" "PostmanRuntime/7.32.2"
+::1 - - [07/May/2023:19:01:17 +0000] "POST /api/v1/register HTTP/1.1" 200 42 "-" "PostmanRuntime/7.32.2"
+::1 - - [07/May/2023:19:01:19 +0000] "POST /api/v1/login HTTP/1.1" 200 339 "-" "PostmanRuntime/7.32.2"
+::1 - - [07/May/2023:19:01:20 +0000] "POST /api/v1/login HTTP/1.1" 200 339 "-" "PostmanRuntime/7.32.2"
+::1 - - [07/May/2023:19:01:21 +0000] "POST /api/v1/login HTTP/1.1" 200 339 "-" "PostmanRuntime/7.32.2"
+::1 - - [07/May/2023:19:01:22 +0000] "POST /api/v1/login HTTP/1.1" 200 339 "-" "PostmanRuntime/7.32.2"
