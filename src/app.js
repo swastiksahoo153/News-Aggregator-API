@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const routes = require("express").Router();
+const loggerMiddleware = require("./middleware/logger");
 
 const newsAggregatorRoutes = require("./routes");
 
@@ -17,6 +18,7 @@ app.use(routes);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+routes.use(loggerMiddleware());
 routes.use(bodyParser.urlencoded({ extended: false }));
 routes.use(bodyParser.json());
 
