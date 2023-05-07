@@ -1,4 +1,5 @@
 const store = require("../data/dataStore");
+const { User } = require("../data");
 
 function updateUserPreferences(userId, preferences) {
   store[userId].preferences = [...store[userId].preferences, ...preferences];
@@ -9,4 +10,8 @@ function getUserPreferences(userId) {
   return Promise.resolve(store[userId].preferences);
 }
 
-module.exports = { updateUserPreferences, getUserPreferences };
+function deleteAllUsers() {
+  User.deleteAll();
+}
+
+module.exports = { updateUserPreferences, getUserPreferences, deleteAllUsers };

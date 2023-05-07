@@ -5,7 +5,11 @@ const {
   createToken,
 } = require("./auth");
 
-const { updateUserPreferences, getUserPreferences } = require("./user");
+const {
+  updateUserPreferences,
+  getUserPreferences,
+  deleteAllUsers,
+} = require("./user");
 
 const {
   markArticleRead,
@@ -23,6 +27,7 @@ module.exports = {
   createToken,
   updateUserPreferences,
   getUserPreferences,
+  deleteAllUsers,
   markArticleRead,
   markArticleFavorite,
   getReadArticles,

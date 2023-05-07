@@ -18,10 +18,11 @@ class User {
       password: this.password,
     };
   }
-  create() {
+  async create() {
     try {
-      if (store[this.id] != undefined) {
-        return Promise.reject("User already exists!");
+      const existingUser = await User.findOne({ email: this.email });
+      if (existingUser != null) {
+        return Promise.reject("Email already exists!");
       }
       store[this.id] = {
         userInfo: this.createUserInfo(),
@@ -54,7 +55,7 @@ class User {
         );
       }
 
-      return Promise.resolve(user.userInfo);
+      return Promise.resolve(user?.userInfo);
     } catch (err) {
       return Promise.reject(
         `Error while fetching user by : ${userAttribute}` + err
